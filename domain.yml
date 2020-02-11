@@ -6,18 +6,54 @@ intents:
   - mood_great
   - mood_unhappy
   - bot_challenge
+  - timetable_date
+  - timetable_time
 
 actions:
-- utter_greet
-- utter_cheer_up
-- utter_did_that_help
-- utter_happy
-- utter_goodbye
-- utter_iamabot
+  - utter_greet
+  - utter_cheer_up
+  - utter_did_that_help
+  - utter_happy
+  - utter_goodbye
+  - utter_iamabot
+  - utter_empty_date
+  - utter_empty_time
+
+entities:
+  - date
+  - time
+
+slots:
+  date:
+    type: categorical
+    values:
+      - today
+      - tomorrow
+      - monday
+      - tuesday
+      - wednesday
+      - thursday
+      - friday
+
+  time:
+    type: categorical
+    values:
+      - 1
+      - 2
+      - 3
+      - 4
+      - 5
+      - 6
+      - 7
+      - 8
+      - 9
+      - 10
+      - 11
+      - 12
 
 responses:
   utter_greet:
-  - text: "Hey! How are you?"
+  - text: "Hi, How can I help you?"
 
   utter_cheer_up:
   - text: "Here is something to cheer you up:"
@@ -34,6 +70,13 @@ responses:
 
   utter_iamabot:
   - text: "I am a bot, powered by Rasa."
+  
+  utter_empty_date:
+  - text: "Your timetable for {date} is not currently full."
+
+  utter_empty_time:
+  - text: "You currently don't have anything at {time}"
+
 
 session_config:
   session_expiration_time: 60

@@ -55,7 +55,7 @@
 - am I talking to a bot?
 - am I talking to a human?
 
-## intent:timetable_query
+## intent:timetable_date
 - what is my timetable [today](date)
 - what is my timetable for [today](date)
 - what is my timetable [tomorrow](date)
@@ -65,6 +65,8 @@
 - what is my timetable on [wednesday](date)
 - what is my timetable on [thursday](date)
 - what is my timetable on [friday](date)
+
+## intent:timetable_time
 - what lecture do i have at [9](time)
 - what lecture do i have at [10](time)
 - what lecture do i have at [11](time)
