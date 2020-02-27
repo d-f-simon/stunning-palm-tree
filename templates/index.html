@@ -17,7 +17,7 @@
         </div>
         <div id="userInput">
             <input id="textInput" type="text" name="msg" placeholder="Message">
-            <input id="buttonInput" type="submit" value="Send">
+            <img id="send" src="/static/arrow.png" height="35" width="35">
         </div>
         <script>
             function getBotResponse() {
@@ -37,7 +37,7 @@
                     getBotResponse();
                 }
             });
-            $("#buttonInput").click(function () {
+            $("#send").click(function () {
                 getBotResponse();
             })
         </script>

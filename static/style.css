@@ -30,19 +30,21 @@ margin-top: 60px;
 margin-left: auto;
 margin-right: auto;
 width: 40%;
-margin-top: 60px;
+margin-top: 35px;
 }
 #textInput {
-width: 87%;
-border: none;
-border-bottom: 3px solid #009688;
-font-family: monospace;
-font-size: 17px;
+    width: 85%;
+    border: none;
+    border-radius: 15px;
+    font-family: monospace;
+    font-size: 17px;
+    padding: 10px;
+    background-color: grey;
+    color: white;
 }
-#buttonInput {
-padding: 3px;
-font-family: monospace;
-font-size: 17px;
+#send {
+    vertical-align: middle;
+    padding-left: 2%;
 }
 .userText {
 color: white;
