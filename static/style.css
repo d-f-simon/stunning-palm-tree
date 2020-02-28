@@ -1,8 +1,55 @@
-body
-{
-font-family: Garamond;
-background-color: black;
+body {
+  display: flex ;
+  flex-direction: column;
+   align-items: center;
+   background-color: red;
+ }
+	
+#chat {
+  font-family: helvetica;
+  width: 60%;
+  border: solid 1px #EEE;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 }
+
+.messages {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  border-radius: 20px;
+  padding: 8px 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+.yours {
+  align-items: flex-start;
+}
+
+.yours .message {
+  margin-right: 25%;
+  background-color: #eee;
+  position: relative;
+}
+
+.mine {
+  align-items: flex-end;
+}
+
+.mine .message {
+  color: white;
+  margin-left: 25%;
+  background: linear-gradient(to bottom, #00D0EA 0%, #0085D1 100%);
+  background-attachment: fixed;
+  position: relative;
+}
+
 h1
 {
 color: rgb(255, 255, 255);
@@ -30,21 +77,19 @@ margin-top: 60px;
 margin-left: auto;
 margin-right: auto;
 width: 40%;
-margin-top: 35px;
+margin-top: 60px;
 }
 #textInput {
-    width: 85%;
-    border: none;
-    border-radius: 15px;
-    font-family: monospace;
-    font-size: 17px;
-    padding: 10px;
-    background-color: grey;
-    color: white;
+width: 87%;
+border: none;
+border-bottom: 3px solid #009688;
+font-family: monospace;
+font-size: 17px;
 }
-#send {
-    vertical-align: middle;
-    padding-left: 2%;
+#buttonInput {
+padding: 3px;
+font-family: monospace;
+font-size: 17px;
 }
 .userText {
 color: white;

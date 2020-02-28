@@ -4,29 +4,124 @@
 <head>
     <link rel="stylesheet" type="text/css" href="/static/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+   
+    <style>
+
+    body {
+    	  display: flex ;
+  flex-direction: column;
+    	align-items: center;
+    }
+	
+#chat {
+  font-family: helvetica;
+  width: 60%;
+  border: solid 1px #EEE;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+  overflow: scroll;
+  height: 300px;
+}
+
+.messages {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.message {
+  border-radius: 20px;
+  padding: 8px 15px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+.yours {
+  align-items: flex-start;
+}
+
+.yours .message {
+  margin-right: 25%;
+  background-color: #eee;
+  position: relative;
+}
+
+.mine {
+  align-items: flex-end;
+}
+
+.mine .message {
+  color: white;
+  margin-left: 25%;
+  background: linear-gradient(to bottom, #00D0EA 0%, #0085D1 100%);
+  background-attachment: fixed;
+  position: relative;
+}
+
+	</style>
 </head>
 
 <body>
     <div id="botHeader">
         <h1>Cardiff University Student Chatbot</h1>
     </div>
-    
-    <div>
-        <div id="chatbox">
-            <p class="botText"><span class="botText">Hi! I'm a Chabot! What can I help you with?</span></p>
-        </div>
+ 
+		<div id="chat">
+			<div class="yours messages">
+    		<div class="message">Hi! What's your name?</div>
+    	</div>
+		</div>
+
         <div id="userInput">
-            <input id="textInput" type="text" name="msg" placeholder="Message">
-            <img id="send" src="/static/arrow.png" height="35" width="35">
+            <input id="textInput" type="text" name="msg" placeholder="Enter query" style="margin-top: 10px">
+            <button id="buttonInput" type="submit" class="btn btn-primary mb-2">Send</button>
         </div>
         <script>
+        	var responseCounter = 0;
+        	var userName = "";
             function getBotResponse() {
-                var rawText = $("#textInput").val();
-                var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
+            	// User input
+                var userInputText = $("#textInput").val();
+                if(userInputText == ""){
+                	alert("Please enter a message!");
+                	return;
+                }
+				responseCounter += 1;
+
+				// Response to user
+                var responseText = '';
+
+				if(responseCounter == 1){
+					// First answer: What's your name?
+					userName = userInputText;
+					responseText = 'Hello ' + userName + '! How can I help you?';
+				}else{
+					responseText = 'Okay ' + userName + ', I got this!';
+				}
+
+            	
+
+
+                if(userInputText == "Goodbye"){
+                	responseText = "Okay, go then " + userName + "!";
+                }
+            
+
+                var userHtml = '<div class="mine messages"><div class="message">' + userInputText + '</div></div>';
+                var responseHhtml = '<div class="yours messages"><div class="message">' + responseText + '</div></div>';
                 $("#textInput").val("");
-                $("#chatbox").append(userHtml);
+                $("#chat").append(userHtml);
+                $("#chat").append(responseHhtml);
                 document.getElementById('userInput').scrollIntoView({ block: 'start', behavior: 'smooth' });
-                $.get("/get", { msg: rawText }).done(function (data) {
+                var chatView = document.getElementById("chat");
+                chatView.scrollTop = chatView.scrollHeight;
+                $.get("/get", { msg: userInputText }).done(function (data) {
                     var botHtml = '<p class="botText"><span>' + data + '</span></p>';
                     $("#chatbox").append(botHtml);
                     document.getElementById('userInput').scrollIntoView({ block: 'start', behavior: 'smooth' });
@@ -37,11 +132,11 @@
                     getBotResponse();
                 }
             });
-            $("#send").click(function () {
+            $("#buttonInput").click(function () {
                 getBotResponse();
             })
         </script>
-    </div>
+    
 </body>
 
 </html>
