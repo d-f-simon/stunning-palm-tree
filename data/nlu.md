@@ -49,7 +49,9 @@
 - extremely sad
 - so sad
 
-## intent:bot_challenge
+## intent:who
+- who are you?
+- what are you?
 - are you a bot?
 - are you a human?
 - am I talking to a bot?
@@ -65,6 +67,14 @@
 - what is my timetable on [wednesday](date)
 - what is my timetable on [thursday](date)
 - what is my timetable on [friday](date)
+- what lectures do i have [today](date)
+- what lectures do i have [tomorrow](date)
+- what lectures do i have [monday](date)
+- what lectures do i have [tuesday](date)
+- what lectures do i have [wednesday](date)
+- what lectures do i have [thursday](date)
+- what lectures do i have [friday](date)
+
 
 ## intent:timetable_time
 - what lecture do i have at [9](time)
@@ -78,3 +88,7 @@
 - what lecture do i have at [5](time)
 - what lecture do i have at [6](time)
 - what lecture do i have at [7](time)
+
+## intent:find_room
+- where can i find room [](room)
+- where is room [](room)

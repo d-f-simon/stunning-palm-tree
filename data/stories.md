@@ -1,14 +1,12 @@
-## happy path
-* mood_great
-  - utter_happy
-
 ## greet path
 * greet
   - utter_greet
 
+## happy path
+* mood_great
+  - utter_happy
+
 ## sad path 1
-* greet
-  - utter_greet
 * mood_unhappy
   - utter_cheer_up
   - utter_did_that_help
@@ -16,8 +14,6 @@
   - utter_happy
 
 ## sad path 2
-* greet
-  - utter_greet
 * mood_unhappy
   - utter_cheer_up
   - utter_did_that_help
@@ -28,10 +24,6 @@
 * goodbye
   - utter_goodbye
 
-## bot challenge
-* bot_challenge
-  - utter_iamabot
-
 ## time table time
 * timetable_time
   - utter_empty_time
@@ -39,3 +31,12 @@
 ## time table date
 * timetable_date
   - utter_empty_date
+
+## find room
+* find_room
+  - utter_find_room
+
+## who
+* who
+  - utter_who
+

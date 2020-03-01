@@ -5,9 +5,10 @@ intents:
   - deny
   - mood_great
   - mood_unhappy
-  - bot_challenge
   - timetable_date
   - timetable_time
+  - find_room
+  - who
 
 actions:
   - utter_greet
@@ -15,13 +16,15 @@ actions:
   - utter_did_that_help
   - utter_happy
   - utter_goodbye
-  - utter_iamabot
   - utter_empty_date
   - utter_empty_time
+  - utter_find_room
+  - utter_who
 
 entities:
   - date
   - time
+  - room
 
 slots:
   date:
@@ -50,6 +53,9 @@ slots:
       - 10
       - 11
       - 12
+  room:
+    type: text
+    initial_value: "1.07"
 
 responses:
   utter_greet:
@@ -68,15 +74,19 @@ responses:
   utter_goodbye:
   - text: "Bye"
 
-  utter_iamabot:
-  - text: "I am a bot, powered by Rasa."
-  
   utter_empty_date:
   - text: "Your timetable for {date} is not currently full."
 
   utter_empty_time:
   - text: "You currently don't have anything at {time}"
+  - text: "You currently have nothing at {time}"
+  - text: "There isn't anything at {time}"
+  
+  utter_find_room:
+  - text: "There is no room {room}"
 
+  utter_who:
+  - text: "I am the Cardiff University Chatbot, how can I help you?"
 
 session_config:
   session_expiration_time: 60
