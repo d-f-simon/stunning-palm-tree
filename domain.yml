@@ -20,6 +20,7 @@ actions:
   - utter_empty_time
   - utter_find_room
   - utter_who
+  
 
 entities:
   - date
@@ -87,6 +88,9 @@ responses:
 
   utter_who:
   - text: "I am the Cardiff University Chatbot, how can I help you?"
+  
+  utter_default:
+  - text: "Sorry, I did not understand that."
 
 session_config:
   session_expiration_time: 60
