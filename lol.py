@@ -3,7 +3,7 @@ import datetime
 #The following line below would work only if you have connected through the VPN - OpenVPN program
 dsn_tns = cx_Oracle.makedsn('csoracle.cs.cf.ac.uk', '1521', service_name='csora12edu.cs.cf.ac.uk')
 #this is the connectivity line that works with my server.
-conn = cx_Oracle.connect(user='c1824840', password='12345678Bg', dsn=dsn_tns) #Oracle username and password
+conn = cx_Oracle.connect(user='', password='', dsn=dsn_tns) #Oracle username and password
 curs = conn.cursor()
 curs.arraysize=50
 timetable_list = []
