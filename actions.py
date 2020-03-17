@@ -2,21 +2,37 @@ from typing import Any, Text, Dict, List
 from rasa_sdk import Action, Tracker
 from rasa_sdk.executor import CollectingDispatcher
 import cx_Oracle
+import datetime
 
-
-
-class viewTimetableDate(Action):
+dsn_tns = cx_Oracle.makedsn('csoracle.cs.cf.ac.uk', '1521', service_name='csora12edu.cs.cf.ac.uk')
+timetable_list = []
+class showTimetable(Action):
  def name(self) -> Text:
-  return "action_view_timetable_date"
+  return "action_show_timetable"
  def run(self, dispatcher, tracker, domain):
-  userpwd = "oracle"
-  connection = cx_Oracle.connect("hr", userpwd, "CSORA12EDU.CS.CF.AC.UK", encoding="UTF-8")
-  with cx_Oracle.connect("hr", userpwd, "CSORA12EDU.CS.CF.AC.UK",
+  connection = cx_Oracle.connect(user='c1824840', password='12345678Bg', dsn=dsn_tns)
+  with cx_Oracle.connect("c1824840", "12345678Bg", "CSORA12EDU.CS.CF.AC.UK",
             encoding="UTF-8") as connection:
     cursor = connection.cursor()
-    cursor.execute("insert into SomeTable values (:1, :2)",
+    cursor.execute("SELECT Module_name,next_class_start,next_class_end, next_class_date FROM Modules,NextClass WHERE Modules.Module_ID = NextClass.Module_ID",
             (1, "Some string"))
+    for i in curs.fetchall():
+        timetable_list.append(i)
     connection.commit()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 class viewTimetableTime(Action):
  def name(self) -> Text:
