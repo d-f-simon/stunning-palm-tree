@@ -1,7 +1,7 @@
 body
 {
 font-family: Garamond;
-background-color: black;
+background-color: white;
 }
 h1
 {
@@ -18,15 +18,34 @@ font-size: 20px;
 margin-top: 3px;
 text-align: center;
 }
+#logo 
+{
+    height:100px;
+    width:100px;
+    display:inline-block;
+}
+#botHeader
+{
+    margin: auto;
+    width:40%;
+}
+#botHeader h1 
+{
+    color:black;
+    display:inline-block;
+    font-size:2vw;
+    font-family: Helvetica, Arial, sans-serif;
+}
 #chatbox
 {
-background-color: black;
+background-color: white;
 margin-left: auto;
 margin-right: auto;
 width: 40%;
 margin-top: 60px;
 }
-#userInput {
+#userInput 
+{
 margin-left: auto;
 margin-right: auto;
 width: 40%;
@@ -34,45 +53,45 @@ margin-top: 35px;
 }
 #textInput {
     width: 85%;
-    border: none;
+    border: 2px solid;
+    border-color:grey;
     border-radius: 15px;
     font-family: monospace;
     font-size: 17px;
     padding: 10px;
-    background-color: grey;
-    color: white;
+    background-color: white;
+    color: black;
 }
-#send {
+#send 
+{
     vertical-align: middle;
     padding-left: 2%;
 }
-.userText {
+.userText 
+{
 color: white;
-font-family: monospace;
+font-family: "Segoe UI", monospace;
 font-size: 17px;
 text-align: right;
 line-height: 30px;
 }
-.userText span {
+.userText span 
+{
 background-color: #44bec7;
 padding: 10px;
 border-radius: 15px;
 }
-.botText {
-color: white;
-font-family: monospace;
+.botText 
+{
+color: black;
+font-family: "Segoe UI", monospace;
 font-size: 17px;
 text-align: left;
 line-height: 30px;
 }
-.botText span {
-background-color: #0084ff;
+.botText span 
+{
+background-color: #e6e6e6;
 padding: 10px;
 border-radius: 15px;
-}
-#tidbit {
-position:absolute;
-bottom:0;
-right:0;
-width: 300px;
 }
