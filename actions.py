@@ -13,6 +13,6 @@ class showTimetable(Action):
  def run(self, dispatcher, tracker, domain):
     cursor = connection.cursor()
     cursor.execute("SELECT Module_name,next_class_start,next_class_end, next_class_date FROM Modules,NextClass WHERE Modules.Module_ID = NextClass.Module_ID")
-    for i in curs.fetchall():
+    for i in cursor.fetchall():
         timetable_list.append(i)
     connection.commit()
