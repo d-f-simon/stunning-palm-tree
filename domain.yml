@@ -20,6 +20,7 @@ actions:
   - utter_empty_time
   - utter_find_room
   - utter_who
+  - action_show_timetable
   
 
 entities:
