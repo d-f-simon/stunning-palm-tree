@@ -1,3 +1,5 @@
+<!-- this is where the bot decides intent based on how similar the user input is to "training data" under each heading, if you want a certain input to give a certain intent put it in here -->
+
 ## intent:greet
 - hey
 - hello
@@ -74,7 +76,7 @@
 - what lectures do i have [wednesday](date)
 - what lectures do i have [thursday](date)
 - what lectures do i have [friday](date)
-
+- show me my timetable
 
 ## intent:timetable_time
 - what lecture do i have at [9](time)
@@ -88,9 +90,6 @@
 - what lecture do i have at [5](time)
 - what lecture do i have at [6](time)
 - what lecture do i have at [7](time)
-
-## intent:show_timetable
-- show me my timetable
 
 ## intent:find_room
 - where can i find room [](room)

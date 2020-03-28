@@ -1,3 +1,5 @@
+#this is where actions and intents are defined, as well as slots, and responses from the bot
+
 intents:
   - greet
   - goodbye
@@ -9,7 +11,6 @@ intents:
   - timetable_time
   - find_room
   - who
-  - show_timetable
 
 actions:
   - utter_greet
@@ -17,20 +18,24 @@ actions:
   - utter_did_that_help
   - utter_happy
   - utter_goodbye
-  - utter_empty_date
+  - utter_timetable
   - utter_empty_time
   - utter_find_room
   - utter_who
+
   - action_show_timetable
+  - action_reset_slot
 
 entities:
   - date
   - time
   - room
+  - timetable
 
 slots:
   date:
     type: categorical
+    initial_value: today
     values:
       - today
       - tomorrow
@@ -59,6 +64,10 @@ slots:
     type: text
     initial_value: "1.07"
 
+  TimeTable:
+    type: list
+
+
 responses:
   utter_greet:
   - text: "Hi, How can I help you?"
@@ -76,8 +85,8 @@ responses:
   utter_goodbye:
   - text: "Bye"
 
-  utter_empty_date:
-  - text: "Your timetable for {date} is not currently full."
+  utter_timetable:
+  - text: "Your timetable {TimeTable}"
 
   utter_empty_time:
   - text: "You currently don't have anything at {time}"
@@ -89,9 +98,6 @@ responses:
 
   utter_who:
   - text: "I am the Cardiff University Chatbot, how can I help you?"
-  
-  utter_default:
-  - text: "Sorry, I did not understand that."
 
 session_config:
   session_expiration_time: 60

@@ -1,3 +1,6 @@
+<!-- this is where it is decided which action is completed after the bot has determined the intent 
+      put custom actions in here so that they are executed -->
+
 ## greet path
 * greet
   - utter_greet
@@ -30,11 +33,9 @@
 
 ## time table date
 * timetable_date
-  - utter_empty_date
-
-## show timetable
-* show_timetable
   - action_show_timetable
+  - utter_timetable
+  <!-- - action_reset_slot -->
 
 ## find room
 * find_room
