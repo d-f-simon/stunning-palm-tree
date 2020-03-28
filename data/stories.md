@@ -32,6 +32,10 @@
 * timetable_date
   - utter_empty_date
 
+## show timetable
+* show_timetable
+  - action_show_timetable
+
 ## find room
 * find_room
   - utter_find_room

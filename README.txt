@@ -1,6 +1,7 @@
-To test the rasa, use pip install pipenv
-then pipenv install rasa
-then pipenv run rasa train
-then pipenv run rasa shell
+to install use pipenv sync
+
+then run batch file, in main window once in the python shell, use 'python app.py'
+
+must be connected to uni vpn
 
 

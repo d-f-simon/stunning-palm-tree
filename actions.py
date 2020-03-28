@@ -16,3 +16,4 @@ class showTimetable(Action):
     for i in cursor.fetchall():
         timetable_list.append(i)
     connection.commit()
+    return timetable_list

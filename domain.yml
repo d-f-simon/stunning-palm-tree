@@ -9,6 +9,7 @@ intents:
   - timetable_time
   - find_room
   - who
+  - show_timetable
 
 actions:
   - utter_greet
@@ -21,7 +22,6 @@ actions:
   - utter_find_room
   - utter_who
   - action_show_timetable
-  
 
 entities:
   - date

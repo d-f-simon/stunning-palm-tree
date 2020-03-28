@@ -89,6 +89,9 @@
 - what lecture do i have at [6](time)
 - what lecture do i have at [7](time)
 
+## intent:show_timetable
+- show me my timetable
+
 ## intent:find_room
 - where can i find room [](room)
 - where is room [](room)
