@@ -11,6 +11,11 @@ intents:
   - timetable_time
   - find_room
   - who
+  - find_lecturer
+  - events
+  - modules
+  - schools
+  - rooms
 
 actions:
   - utter_greet
@@ -22,8 +27,17 @@ actions:
   - utter_empty_time
   - utter_find_room
   - utter_who
-
+  - utter_lecturer
+  - utter_events
+  - utter_modules
+  - utter_schools
+  - utter_rooms
+  - action_rooms
+  - action_schools
+  - action_modules
+  - action_show_lecturers
   - action_show_timetable
+  - action_SU
   - action_reset_slot
 
 entities:
@@ -31,6 +45,11 @@ entities:
   - time
   - room
   - timetable
+  - lecturers
+  - events
+  - modules
+  - schools
+  - rooms
 
 slots:
   date:
@@ -60,13 +79,24 @@ slots:
       - 10
       - 11
       - 12
-  room:
-    type: text
-    initial_value: "1.07"
 
   TimeTable:
     type: list
+  
+  Lecturers:
+    type: list
 
+  Events:
+    type: list
+
+  Modules:
+    type: list
+
+  Schools:
+    type: list
+
+  Rooms: 
+    type: list
 
 responses:
   utter_greet:
@@ -88,11 +118,26 @@ responses:
   utter_timetable:
   - text: "Your timetable {TimeTable}"
 
+  utter_lecturer:
+  - text: "Lecturer info {Lecturers}"
+
+  utter_events:
+  - text: "Upcoming Events {Events}"
+
+  utter_modules:
+  - text: "Modules {Modules}"
+
   utter_empty_time:
   - text: "You currently don't have anything at {time}"
   - text: "You currently have nothing at {time}"
   - text: "There isn't anything at {time}"
   
+  utter_schools:
+  - text: "Schools {Schools}"
+
+  utter_rooms:
+  - text: "Rooms {Rooms}"
+
   utter_find_room:
   - text: "There is no room {room}"
 
