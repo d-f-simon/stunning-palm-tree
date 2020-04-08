@@ -27,6 +27,11 @@
 * goodbye
   - utter_goodbye
 
+## find_lecturer
+* find_lecturer
+    - action_show_lecturers
+    - utter_lecturer
+
 ## time table time
 * timetable_time
   - utter_empty_time
@@ -45,3 +50,22 @@
 * who
   - utter_who
 
+## events
+* events
+    - action_SU
+    - utter_events
+
+## modules
+* modules
+    - action_modules
+    - utter_modules
+
+## schools
+* schools
+    - action_schools
+    - utter_schools
+
+## rooms
+* rooms
+    - action_rooms
+    - utter_rooms

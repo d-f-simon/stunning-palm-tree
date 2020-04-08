@@ -94,3 +94,24 @@
 ## intent:find_room
 - where can i find room [](room)
 - where is room [](room)
+
+## intent:find_lecturer
+- what lecturers do you have in db
+- show me lecturer information
+
+## intent:events
+- what are the upcoming events in SU
+- upcoming events
+
+
+## intent:modules
+- what are my modules
+- modules
+
+## intent:schools
+- schools
+- what are the schools in the university
+
+## intent:rooms
+- rooms
+- what are the rooms in the university
