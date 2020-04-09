@@ -60,7 +60,7 @@
 - am I talking to a human?
 
 ## intent:timetable_date
-- what is my timetable [today](date)
+<!-- - what is my timetable [today](date)
 - what is my timetable for [today](date)
 - what is my timetable [tomorrow](date)
 - what is my timetable for [tomorrow](date)
@@ -75,11 +75,12 @@
 - what lectures do i have [tuesday](date)
 - what lectures do i have [wednesday](date)
 - what lectures do i have [thursday](date)
-- what lectures do i have [friday](date)
+- what lectures do i have [friday](date) -->
+- timetable
 - show me my timetable
 
 ## intent:timetable_time
-- what lecture do i have at [9](time)
+<!-- - what lecture do i have at [9](time)
 - what lecture do i have at [10](time)
 - what lecture do i have at [11](time)
 - what lecture do i have at [12](time)
@@ -89,11 +90,13 @@
 - what lecture do i have at [4](time)
 - what lecture do i have at [5](time)
 - what lecture do i have at [6](time)
-- what lecture do i have at [7](time)
+- what lecture do i have at [7](time) -->
+- timetable time
+- time lecture
 
 ## intent:find_room
-- where can i find room [](room)
-- where is room [](room)
+- where can i find room
+- where is room 
 
 ## intent:find_lecturer
 - what lecturers do you have in db
@@ -115,3 +118,15 @@
 ## intent:rooms
 - rooms
 - what are the rooms in the university
+
+## intent:address
+- where is the location
+- what is the address
+
+## intent:LecturerOffice
+- where is the office
+- office
+
+## intent:LecturerEmail
+- what is the email
+- email

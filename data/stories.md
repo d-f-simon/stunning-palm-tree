@@ -44,6 +44,7 @@
 
 ## find room
 * find_room
+  - action_FindRoom
   - utter_find_room
 
 ## who
@@ -69,3 +70,18 @@
 * rooms
     - action_rooms
     - utter_rooms
+
+## address
+* address
+    - action_where
+    - utter_where
+
+## LecturerOffice
+* LecturerOffice
+    - action_office
+    - utter_office
+
+## LecturerEmail
+* LecturerEmail
+    - аction_lecturer_email
+    - utter_email
