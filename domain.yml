@@ -16,6 +16,10 @@ intents:
   - modules
   - schools
   - rooms
+  - address
+  - RoomLocation
+  - LecturerOffice
+  - LecturerEmail
 
 actions:
   - utter_greet
@@ -32,6 +36,14 @@ actions:
   - utter_modules
   - utter_schools
   - utter_rooms
+  - utter_where
+  - utter_help
+  - utter_office
+  - utter_email
+  - аction_lecturer_email
+  - action_office
+  - action_FindRoom
+  - action_where
   - action_rooms
   - action_schools
   - action_modules
@@ -50,6 +62,10 @@ entities:
   - modules
   - schools
   - rooms
+  - address
+  - roomlocation
+  - email
+  - office
 
 slots:
   date:
@@ -98,6 +114,18 @@ slots:
   Rooms: 
     type: list
 
+  Address:
+    type: text
+
+  Room Location:
+    type: text
+
+  Office:
+    type: text
+
+  Email:
+    type: text
+
 responses:
   utter_greet:
   - text: "Hi, How can I help you?"
@@ -105,6 +133,9 @@ responses:
   utter_cheer_up:
   - text: "Here is something to cheer you up:"
     image: "https://i.imgur.com/nGF1K8f.jpg"
+
+  utter_help:
+  - text: "Can I get anything else for you?"
 
   utter_did_that_help:
   - text: "Did that help you?"
@@ -138,11 +169,20 @@ responses:
   utter_rooms:
   - text: "Rooms {Rooms}"
 
+  utter_email:
+  - text: "Email of the lecturer {Email}"
+
   utter_find_room:
-  - text: "There is no room {room}"
+  - text: "Room's location is in {Room Location}"
 
   utter_who:
   - text: "I am the Cardiff University Chatbot, how can I help you?"
+
+  utter_where:
+  - text: "Address: {Address}"
+
+  utter_office:
+  - text: "The Office of the lecturer is {Office}"
 
 session_config:
   session_expiration_time: 60
