@@ -97,22 +97,22 @@ slots:
       - 12
 
   TimeTable:
-    type: list
+    type: text
   
   Lecturers:
-    type: list
+    type: text
 
   Events:
-    type: list
+    type: text
 
   Modules:
-    type: list
+    type: text
 
   Schools:
-    type: list
+    type: text
 
   Rooms: 
-    type: list
+    type: text
 
   Address:
     type: text
@@ -147,7 +147,7 @@ responses:
   - text: "Bye"
 
   utter_timetable:
-  - text: "Your timetable {TimeTable}"
+  - text: "{TimeTable}"
 
   utter_lecturer:
   - text: "Lecturer info {Lecturers}"

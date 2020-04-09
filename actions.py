@@ -29,9 +29,14 @@ class showTimetable(Action):
     cursor = connection.cursor()
     cursor.execute("SELECT Module_name,next_class_start,next_class_end, next_class_date FROM Modules,NextClass WHERE Modules.Module_ID = NextClass.Module_ID")
     timetable_list = []
+    timetable_string = ""
+    timetable_string_temp = ""
     for i in cursor.fetchall():
         timetable_list.append(i)
-    return [SlotSet("TimeTable", timetable_list if timetable_list is not None else [])]
+    for k in timetable_list:
+         timetable_string_temp = "Module name: " + k[0] + ", Starting at: " + k[1] + ", Ending at: " + k[2] + ", Date " + k[3] + "\n "
+         timetable_string += timetable_string_temp
+    return [SlotSet("TimeTable", timetable_string)]
 
 class showLecturer(Action):
  def name(self) -> Text:
@@ -41,10 +46,14 @@ class showLecturer(Action):
     cursor = connection.cursor()
     cursor.execute("SELECT Lecturer_name, Job_desc, Lecturer_email,School_name, Room_Id FROM Lecturer,Schools WHERE Lecturer.School_ID = Schools.School_ID")
     lecturer = []
+    lecturer_string_temp = ""
+    lecturer_string = ""
     for k in cursor.fetchall():
-        # lecturer[k[0]] = [k[1],k[2],k[3],k[4]]
         lecturer.append(k)
-    return [SlotSet("Lecturers", lecturer if lecturer is not None else [])]
+    for i in lecturer:
+        lecturer_string_temp = "Lecturer name: " + i[0] + ", Job Description: " + i[1] + ", Lecturer email: " + i[2] + ", School of " + i[3] + ", Office: " + i[4] + "\n "
+        lecturer_string += lecturer_string_temp
+    return [SlotSet("Lecturers", lecturer_string)]
 
 class actionSU(Action):
  def name(self) -> Text:
@@ -54,9 +63,15 @@ class actionSU(Action):
     cursor = connection.cursor()
     cursor.execute("SELECT Event_name,starting_time,ending_time,date_event,Building_name,Location_building FROM Bookings,Rooms,Buildings WHERE Bookings.Room_ID = Rooms.Room_ID AND Buildings.Building_ID = Rooms.Building_ID")
     SU = []
+    SU_string_temp = ""
+    SU_string = ""
     for k in cursor.fetchall():
         SU.append(k)
-    return [SlotSet("Events", SU if SU is not None else [])]
+    for i in SU:
+        SU_string_temp = "Event name: " + i[0] + ", Starting time: " + i[1] + ", Ending time: " + i[2] + ", Date of the event: " + i[3] + ", At: " + i[4] + "\n "
+        SU_string += SU_string_temp
+    return [SlotSet("Events", SU_string)]
+
 class actionModules(Action):
  def name(self) -> Text:
   return "action_modules"
@@ -65,9 +80,14 @@ class actionModules(Action):
     cursor = connection.cursor()
     cursor.execute("SELECT Module_ID, Module_name,Semester,Lecturer_name FROM Modules,Lecturer WHERE Modules.Lecturer_ID = Lecturer.Lecturer_ID")
     Modules = []
+    Modules_string_temp = ""
+    Modules_string = ""
     for k in cursor.fetchall():
         Modules.append(k)
-    return [SlotSet("Modules", Modules if Modules is not None else [])]
+    for i in Modules:
+        Modules_string_temp = "Module code: " + i[0] + ", Module name: " + i[1] + ", Semester: " + i[2] + ", Leading lecturer: " + i[3] + "\n "
+        Modules_string += Modules_string_temp
+    return [SlotSet("Modules", Modules_string)]
 
 class actionSchools(Action):
  def name(self) -> Text:
@@ -77,9 +97,14 @@ class actionSchools(Action):
     cursor = connection.cursor()
     cursor.execute("SELECT School_name, Building_name, Location_building FROM Buildings,Schools WHERE Buildings.Building_ID = Schools.Building_ID")
     Schools = []
+    School_string = ""
+    Schools_string_temp = ""
     for k in cursor.fetchall():
         Schools.append(k)
-    return [SlotSet("Schools", Schools if Schools is not None else [])]
+    for i in Schools:
+        Schools_string_temp = "School of " + i[0] + ", Building of the school: " + i[1] + "\n "
+        Schools_string += Schools_string_temp
+    return [SlotSet("Schools", Schools_string)]
 
 class actionRooms(Action):
  def name(self) -> Text:
@@ -89,9 +114,14 @@ class actionRooms(Action):
     cursor = connection.cursor()
     cursor.execute("SELECT Room_ID, Building_name FROM Rooms,Buildings WHERE Rooms.Building_ID = Buildings.Building_ID")
     Rooms = []
+    Rooms_string = ""
+    Rooms_string_temp = ""
     for k in cursor.fetchall():
          Rooms.append(k)
-    return [SlotSet("Rooms",  Rooms if  Rooms is not None else [])]
+    for i in Rooms:
+        Rooms_string_temp = "Room : " + i[0] + "Located in: " + i[1] + "\n "
+        Rooms_string += Rooms_string_temp
+    return [SlotSet("Rooms",  Rooms_string)]
 
 class actionWhere(Action):
  def name(self) -> Text:
