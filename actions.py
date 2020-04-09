@@ -93,6 +93,65 @@ class actionRooms(Action):
          Rooms.append(k)
     return [SlotSet("Rooms",  Rooms if  Rooms is not None else [])]
 
-connection.commit()
+class actionWhere(Action):
+ def name(self) -> Text:
+  return "action_where"
 
+ def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    cursor = connection.cursor()
+    cursor.execute("SELECT School_name, Building_name, Location_building FROM Buildings,Schools WHERE Buildings.Building_ID = Schools.Building_ID")
+    Buildings = []
+    message = tracker.latest_message.get('text')
+    for k in cursor.fetchall():
+         Buildings.append(k)
+    for j in Buildings:
+        if j[0] in message:
+            return [SlotSet("Address", j[2])]
+        elif j[1] in message:
+            return [SlotSet("Address", j[2])]
+
+class actionFindRoom(Action):
+ def name(self) -> Text:
+  return "action_FindRoom"
+
+ def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    cursor = connection.cursor()
+    cursor.execute("SELECT Room_ID, Building_name FROM Rooms,Buildings WHERE Rooms.Building_ID = Buildings.Building_ID")
+    Rooms = []
+    message = tracker.latest_message.get('text')
+    for k in cursor.fetchall():
+         Rooms.append(k)
+    for j in Rooms:
+        if j[0] in message:
+            return [SlotSet("Room Location", j[1])]
+class actionOffice(Action):
+ def name(self) -> Text:
+  return "action_office"
+
+ def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    cursor = connection.cursor()
+    cursor.execute("SELECT Lecturer_name,Room_ID FROM Lecturer")
+    Office = []
+    message = tracker.latest_message.get('text')
+    for k in cursor.fetchall():
+         Office.append(k)
+    for j in Office:
+        if j[0] in message:
+            return [SlotSet("Office", j[1])]
+class actionEmail(Action):
+ def name(self) -> Text:
+  return "аction_lecturer_email"
+
+ def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    cursor = connection.cursor()
+    cursor.execute("SELECT Lecturer_name,Lecturer_email FROM Lecturer")
+    Email = []
+    message = tracker.latest_message.get('text')
+    for k in cursor.fetchall():
+         Email.append(k)
+    for j in Email:
+        if j[0] in message:
+            return [SlotSet("Email", j[1])]
+
+connection.commit()
 
