@@ -60,7 +60,7 @@
 - am I talking to a human?
 
 ## intent:timetable_date
-<!-- - what is my timetable [today](date)
+- what is my timetable [today](date)
 - what is my timetable for [today](date)
 - what is my timetable [tomorrow](date)
 - what is my timetable for [tomorrow](date)
@@ -69,13 +69,6 @@
 - what is my timetable on [wednesday](date)
 - what is my timetable on [thursday](date)
 - what is my timetable on [friday](date)
-- what lectures do i have [today](date)
-- what lectures do i have [tomorrow](date)
-- what lectures do i have [monday](date)
-- what lectures do i have [tuesday](date)
-- what lectures do i have [wednesday](date)
-- what lectures do i have [thursday](date)
-- what lectures do i have [friday](date) -->
 - timetable
 - show me my timetable
 
@@ -104,8 +97,15 @@
 
 ## intent:events
 - what are the upcoming events in SU
+- what events are on [today](date)
+- what events are on [tomorrow](date)
+- what events are on [monday](date)
+- what events are on [tuesday](date)
+- what events are on [wednesday](date)
+- what events are on [thursday](date)
+- what events are on [friday](date)
+- show me upcoming events
 - upcoming events
-
 
 ## intent:modules
 - what are my modules
@@ -122,6 +122,7 @@
 ## intent:address
 - where is the location
 - what is the address
+- where is 
 
 ## intent:LecturerOffice
 - where is the office

@@ -40,6 +40,7 @@ actions:
   - utter_help
   - utter_office
   - utter_email
+
   - аction_lecturer_email
   - action_office
   - action_FindRoom
@@ -147,7 +148,7 @@ responses:
   - text: "Bye"
 
   utter_timetable:
-  - text: "{TimeTable}"
+  - text: "Your timetable for {date} is {TimeTable}"
 
   utter_lecturer:
   - text: "Lecturer info {Lecturers}"
