@@ -85,3 +85,23 @@
 * LecturerEmail
     - аction_lecturer_email
     - utter_email
+
+## PersonalTutor
+* PersonalTutor
+    - аction_pt
+    - utter_pt
+
+## NotUnderstood
+* NotUnderstood
+    - utter_help
+
+## Exam
+* Exam
+    - аction_exam
+    - utter_exam
+
+## Asssessment
+* Assessment
+    - action_assessment
+    - utter_assessment
+

@@ -125,9 +125,28 @@
 - where is 
 
 ## intent:LecturerOffice
-- where is the office
-- office
+- where is the office of lecturer
+- lecturer office
 
 ## intent:LecturerEmail
-- what is the email
-- email
+- what is the email of lecturer
+- lecturer email
+
+## intent:PersonalTutor
+- who is my personal tutor
+- personal tutor
+
+## intent:NotUnderstood
+- 
+- .
+- fdsafdasfda
+
+## intent:Exam
+- exam date
+- when is the exam of
+- exam
+
+## intent:Assessment
+- assessment date
+- when is the assessment of
+- assessment
