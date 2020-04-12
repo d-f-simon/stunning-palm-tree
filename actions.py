@@ -18,8 +18,8 @@ class getDate():
         #timeStampStrToday = dateTimeObj.strftime("%d/%m/%Y")
         #dateTimeObj = date.tomorrow()
         #timeStampStrTomorrow = dateTimeObj.strftime("%d/%m/%Y")
-        timeStampStrToday = '19/04/2020'
-        timeStampStrTomorrow = '20/04/2020'
+        timeStampStrToday = '19/03/2019'
+        timeStampStrTomorrow = '20/03/2019'
 
         if day  == 'today':
             date_choice = timeStampStrToday
@@ -45,7 +45,7 @@ class showTimetable(Action):
  def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
     
     cursor = connection.cursor()
-    cursor.execute("SELECT Module_name,next_class_start,next_class_end, next_class_date FROM Modules,NextClass WHERE Modules.Module_ID = NextClass.Module_ID")
+    cursor.execute("SELECT Module_name,next_class_start,next_class_end, next_class_date, Room_ID FROM Modules,NextClass WHERE Modules.Module_ID = NextClass.Module_ID")
     timetable_list = []
     timetable_string = ""
     timetable_string_temp = ""
@@ -59,14 +59,14 @@ class showTimetable(Action):
     if 'today' in message or 'tomorrow' in message:
         for k in timetable_list:
             if k[3] == getDate.date_choice(day):
-                timetable_string_temp = "Module name: " + k[0] + ", Starting at: " + k[1] + ", Ending at: " + k[2] + ", Date " + k[3] + "<br /> "
+                timetable_string_temp = "Module name: " + k[0] + ", Starting at: " + k[1] + ", Ending at: " + k[2] + ", Date " + k[3] + ", Room: " + k[4] + "<br /> "
                 timetable_string += timetable_string_temp
 
         if timetable_string == '':
             timetable_string = "currently empty."
     else:
         for k in timetable_list:
-            timetable_string_temp = "Module name: " + k[0] + ", Starting at: " + k[1] + ", Ending at: " + k[2] + ", Date " + k[3] + "<br /> "
+            timetable_string_temp = "Module name: " + k[0] + ", Starting at: " + k[1] + ", Ending at: " + k[2] + ", Date " + k[3] + ", Room: " + k[4] + "<br /> "
             timetable_string += timetable_string_temp
 
         
@@ -233,6 +233,49 @@ class actionEmail(Action):
     for j in Email:
         if j[0] in message:
             return [SlotSet("Email", j[1])]
+
+
+class actionPTEmail(Action):
+ def name(self) -> Text:
+  return "аction_pt"
+
+ def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    cursor = connection.cursor()
+    cursor.execute("SELECT Lecturer_name from Lecturer,Student WHERE Lecturer.Lecturer_ID = Student.Lecturer_ID")
+    pt = ""
+    for k in cursor.fetchall():
+         pt = k[0]
+    return [SlotSet("PT", pt)]
+
+class actionExam(Action):
+ def name(self) -> Text:
+  return "аction_exam"
+
+ def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    cursor = connection.cursor()
+    cursor.execute("SELECT Module_ID, Module_name, Exam_date from Modules")
+    Exam = []
+    message = tracker.latest_message.get('text')
+    for k in cursor.fetchall():
+         Exam.append(k)
+    for j in Exam:
+        if j[0] in message or j[1] in message:
+            return [SlotSet("Exam", j[2])]
+
+class actionAssessment(Action):
+ def name(self) -> Text:
+  return "action_assessment"
+
+ def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    cursor = connection.cursor()
+    cursor.execute("SELECT Module_ID, Module_name, Assessment_date from Modules")
+    Assessment = []
+    message = tracker.latest_message.get('text')
+    for k in cursor.fetchall():
+         Assessment.append(k)
+    for j in Assessment:
+        if j[0] in message or j[1] in message:
+            return [SlotSet("Assessment", j[2])]
 
 connection.commit()
 
