@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" type="text/css" href="/static/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <div id="botHeader">
+        <img src="/static/logo.jpg" id="logo">
+        <h1>Student Chatbot</h1>
+    </div>
+    
+    <div id="bothBoxes">
+        <div id="chatbox">
+            <p class="botText"><span class="botText">Hi! I'm a Chatbot! What can I help you with?</span></p>
+        </div>
+        <div id="userInput">
+            <input id="textInput" type="text" name="msg" placeholder="Message">
+            <img id="send" src="/static/arrow.png" height="35" width="35">
+            <button id="microphoneButton">Start <i class="fa fa-microphone"></i></button>
+        </div>
+        <script>
+            function getBotResponse() {
+                var rawText = $("#textInput").val();
+                var userHtml = '<p class="userText"><span>' + rawText + '</span></p>';
+                $("#textInput").val("");
+                $("#chatbox").append(userHtml);
+                document.getElementById('userInput').scrollIntoView({ block: 'start', behavior: 'smooth' });
+                $.get("/get", { msg: rawText }).done(function (data) {
+                    var botHtml = '<p class="botText"><span>' + data + '</span></p>';
+                    $("#chatbox").append(botHtml);
+                    document.getElementById('userInput').scrollIntoView({ block: 'start', behavior: 'smooth' });
+                });
+            }
+            $("#textInput").keypress(function (e) {
+                if (e.which == 13) {
+                    convertedText = "";
+                    recognition.stop();
+                    getBotResponse();
+                }
+            });
+            $("#send").click(function () {
+                convertedText = "";
+                recognition.stop();
+                getBotResponse();
+            })
+
+
+            // VOICE RECOGNITION
+            var microphoneButton = $('#microphoneButton');
+            var textField = $('#textInput');
+            var convertedText = '';
+            var isItOn = false;
+
+
+            try {
+                var SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                var recognition = new SpeechRecognition();
+            } catch (e) {
+                console.error(e);
+                $('.no-browser-support').show();
+                $('.app').hide();
+            }
+
+            recognition.continuous = true;
+
+
+            recognition.onresult = function(event) {
+
+                var current = event.resultIndex;
+
+                var transcript = event.results[current][0].transcript;
+
+                var mobileRepeatBug = (current == 1 && transcript == event.results[0][0].transcript);
+
+                if (!mobileRepeatBug) {
+                    convertedText += transcript;
+                    convertedText = convertedText.charAt(0).toUpperCase() + convertedText.slice(1);
+                    textField.val(convertedText);
+                }
+            };
+
+            recognition.onstart = function() {
+                console.log('Voice recognition activated. Try speaking into the microphone.');
+                document.getElementById("microphoneButton").innerHTML = "Stop";
+            }
+
+            recognition.onspeechend = function() {
+                console.log('You were quiet for a while so voice recognition turned itself off.');
+                document.getElementById("microphoneButton").innerHTML = 'Start <i class="fa fa-microphone"></i';
+            }
+
+            recognition.onerror = function(event) {
+                if (event.error == 'no-speech') {
+                    console.log('No speech was detected. Try again.');
+                };
+            }
+
+
+            $('#microphoneButton').on('click', function(e) {
+                if (isItOn == true) {
+                    // Stop
+                    isItOn = false;
+                    recognition.stop();
+                } else {
+                    // Start
+                    isItOn = true;
+                    if (convertedText.length) {
+                        convertedText += ' ';
+                    }
+                    recognition.start();
+                }
+            });
+
+
+            // Sync the text inside the text area with the noteContent variable.
+            textField.on('input', function() {
+                console.log($(this).val());
+                convertedText = $(this).val();
+            })
+
+
+        </script>
+    </div>
+</body>
+
+</html>
