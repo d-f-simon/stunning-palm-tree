@@ -24,6 +24,7 @@ intents:
   - NotUnderstood
   - Exam
   - Assessment
+  - SendingEmail
 
 actions:
   - utter_greet
@@ -47,7 +48,12 @@ actions:
   - utter_pt
   - utter_exam
   - utter_assessment
+  - utter_subject_email
+  - utter_body_email
+  - utter_reciever_email
+  - utter_email_sent
 
+  - action_send_email
   - аction_exam
   - action_assessment
   - аction_pt
@@ -180,6 +186,19 @@ responses:
 
   utter_modules:
   - text: "Modules {Modules}"
+
+  utter_subject_email:
+  - text: "What would be the subject of the email?"
+
+  utter_body_email:
+  - text: "What would be the body of the email?"
+
+  utter_reciever_email:
+  - text: "Who is going to be the reciever of the email?"
+
+  utter_email_sent:
+  - text: "Email sent successfully!"
+
 
   utter_empty_time:
   - text: "You currently don't have anything at {time}"

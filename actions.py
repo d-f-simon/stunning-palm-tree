@@ -4,6 +4,7 @@ from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.events import SlotSet
 import cx_Oracle
 from datetime import date
+import smtplib
 
 dsn_tns = cx_Oracle.makedsn('csoracle.cs.cf.ac.uk', '1521', service_name='csora12edu.cs.cf.ac.uk')
 connection = cx_Oracle.connect(user='c1824840', password='12345678Bg', dsn=dsn_tns)
@@ -276,6 +277,30 @@ class actionAssessment(Action):
     for j in Assessment:
         if j[0] in message or j[1] in message:
             return [SlotSet("Assessment", j[2])]
+
+class actionSendEmail(Action):
+ def name(self) -> Text:
+  return "action_send_email"
+
+ def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    Email = "chatbot.gp19@gmail.com"
+    Pass = "123456GP19"
+    message = tracker.latest_message.get('text')
+    stripped = list(message.split(" "))
+    reciever = ""
+    for k in stripped:
+        if "@" in k:
+            reciever += k 
+    with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
+        smtp.ehlo()
+        smtp.starttls()
+        smtp.ehlo()
+        smtp.login(Email,Pass)
+        subject = "gope vij tva"
+        body = "test email"
+        if body != "" and subject !="" and reciever != "":
+            msg = f'Subject: {subject}\n\n{body}'
+            smtp.sendmail(Email, reciever, msg)
 
 connection.commit()
 
