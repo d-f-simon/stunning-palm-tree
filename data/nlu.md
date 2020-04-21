@@ -150,3 +150,7 @@
 - assessment date
 - when is the assessment of
 - assessment
+
+## intent:SendingEmail
+- Can I send email
+- send email

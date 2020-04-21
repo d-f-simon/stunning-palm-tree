@@ -105,3 +105,7 @@
     - action_assessment
     - utter_assessment
 
+## SendingEmail
+* SendingEmail
+      - action_send_email
+      - utter_email_sent
