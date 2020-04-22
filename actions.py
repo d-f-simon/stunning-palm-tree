@@ -5,6 +5,7 @@ from rasa_sdk.events import SlotSet
 import cx_Oracle
 from datetime import date
 import smtplib
+from rasa_sdk.forms import FormAction
 
 dsn_tns = cx_Oracle.makedsn('csoracle.cs.cf.ac.uk', '1521', service_name='csora12edu.cs.cf.ac.uk')
 connection = cx_Oracle.connect(user='c1824840', password='12345678Bg', dsn=dsn_tns)
@@ -278,29 +279,40 @@ class actionAssessment(Action):
         if j[0] in message or j[1] in message:
             return [SlotSet("Assessment", j[2])]
 
-class actionSendEmail(Action):
- def name(self) -> Text:
-  return "action_send_email"
 
- def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
-    Email = "chatbot.gp19@gmail.com"
-    Pass = "123456GP19"
-    message = tracker.latest_message.get('text')
-    stripped = list(message.split(" "))
-    reciever = ""
-    for k in stripped:
-        if "@" in k:
-            reciever += k 
-    with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
-        smtp.ehlo()
-        smtp.starttls()
-        smtp.ehlo()
-        smtp.login(Email,Pass)
-        subject = "gope vij tva"
-        body = "test email"
-        if body != "" and subject !="" and reciever != "":
+class ActionForm(FormAction):
+    def name(self) -> Text:
+
+        return "email_form"
+
+    @staticmethod
+    def required_slots(tracker: Tracker) -> List[Text]:
+
+        return ["receiver", "subject", "body"]
+
+    def submit(self,dispatcher: CollectingDispatcher,tracker: Tracker, domain: Dict[Text, Any],) -> List[Dict]:
+        Email = "chatbot.gp19@gmail.com"
+        Pass = "123456GP19"
+        receiver =  tracker.get_slot("receiver")
+        subject_list = tracker.get_slot("subject")
+        body = tracker.latest_message.get('text')
+        subject = ""
+        for i in subject_list:
+            if len(i) != 1:
+                subject += i + " "
+            else:
+                subject += i
+
+        with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
+            smtp.ehlo()
+            smtp.starttls()
+            smtp.ehlo()
+            smtp.login(Email,Pass)
             msg = f'Subject: {subject}\n\n{body}'
-            smtp.sendmail(Email, reciever, msg)
+            smtp.sendmail(Email, receiver, msg)
+        dispatcher.utter_message(template="utter_email_sent")
+        return []
+
 
 connection.commit()
 

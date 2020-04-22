@@ -25,6 +25,14 @@ intents:
   - Exam
   - Assessment
   - SendingEmail
+  - receiver_entry
+  - subject_entry
+  - body_entry
+
+
+forms:
+  - email_form
+
 
 actions:
   - utter_greet
@@ -48,10 +56,10 @@ actions:
   - utter_pt
   - utter_exam
   - utter_assessment
-  - utter_subject_email
-  - utter_body_email
-  - utter_reciever_email
   - utter_email_sent
+  - utter_ask_receiver
+  - utter_ask_subject
+  - utter_ask_body
 
   - action_send_email
   - аction_exam
@@ -70,6 +78,9 @@ actions:
   - action_reset_slot
 
 entities:
+  - subject
+  - body
+  - receiver
   - date
   - time
   - room
@@ -155,6 +166,15 @@ slots:
   Assessment:
     type: text
 
+  body:
+    type: unfeaturized
+
+  subject:
+    type: unfeaturized
+
+  receiver:
+    type: unfeaturized
+
 responses:
   utter_greet:
   - text: "Hi, How can I help you?"
@@ -187,13 +207,13 @@ responses:
   utter_modules:
   - text: "Modules {Modules}"
 
-  utter_subject_email:
+  utter_ask_subject:
   - text: "What would be the subject of the email?"
 
-  utter_body_email:
-  - text: "What would be the body of the email?"
+  utter_ask_body:
+  - text: "What would be the message in the body of the email?"
 
-  utter_reciever_email:
+  utter_ask_receiver:
   - text: "Who is going to be the reciever of the email?"
 
   utter_email_sent:
