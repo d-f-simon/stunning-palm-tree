@@ -107,5 +107,8 @@
 
 ## SendingEmail
 * SendingEmail
-      - action_send_email
+      - email_form
+      - form{"name": "email_form"}
+      - form{"name": null}
       - utter_email_sent
+      - action_restart

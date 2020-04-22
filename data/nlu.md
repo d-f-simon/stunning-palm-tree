@@ -154,3 +154,46 @@
 ## intent:SendingEmail
 - Can I send email
 - send email
+- Can I send an email to [John@gmail.com](receiver)
+- Can I send an email to [Grig@gmail.com](receiver)
+- Can I send an email to [Andon@outlook.com](receiver)
+- Can I send an email to [Grig@outlook.com](receiver)
+- Can I send an email to [GribachevA@cardiff.ac.uk](receiver)
+- Can I send an email to [Grig@cardiff.ac.uk](receiver)
+
+## intent: receiver_entry
+-[John@gmail.com](receiver)
+-[Andon@gmail.com](receiver)
+-[Andon@outlook.com](receiver)
+-[Grig@outlook.com](receiver)
+-[GribachevA@cardiff.ac.uk](receiver)
+-[Grig@cardiff.ac.uk](receiver)
+
+## intent: subject_entry
+-[Inquiry](subject)
+-the subject is [Inquiry](subject)
+-[Personal](subject)
+-[Distribution](subject)
+-[Offer](subject)
+-[Story](subject)
+-[Urgency](subject)
+-[Urgent Inquiry](subject)
+-[Urgent inquiry](subject)
+-[inquiry](subject)
+-[inquiries](subject)
+-[Greetings](subject)
+-[TestText](subject)
+-[Test](subject)
+-[Hello](subject)
+
+## intent: body_entry
+-[qweasd](body)
+-[asdzxc](body)
+-[TestText](body)
+-[Test](body)
+-[Hello](body)
+-[Dear](body)
+-[Hello Mr](body)
+-[Hello Ms](body)
+-[Dear Mr](body)
+-[Dear Ms](body)
