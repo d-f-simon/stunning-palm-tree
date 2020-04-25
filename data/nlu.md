@@ -182,9 +182,7 @@
 -[inquiry](subject)
 -[inquiries](subject)
 -[Greetings](subject)
--[TestText](subject)
--[Test](subject)
--[Hello](subject)
+
 
 ## intent: body_entry
 -[qweasd](body)
