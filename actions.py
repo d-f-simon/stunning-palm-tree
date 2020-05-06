@@ -6,27 +6,31 @@ import cx_Oracle
 from datetime import date
 import smtplib
 from rasa_sdk.forms import FormAction
+import urllib.parse
 
 dsn_tns = cx_Oracle.makedsn('csoracle.cs.cf.ac.uk', '1521', service_name='csora12edu.cs.cf.ac.uk')
 connection = cx_Oracle.connect(user='c1824840', password='12345678Bg', dsn=dsn_tns)
 
-
-
 class getDate():
     def date_choice(day):
-
-
         #dateTimeObj = date.today()
         #timeStampStrToday = dateTimeObj.strftime("%d/%m/%Y")
         #dateTimeObj = date.tomorrow()
         #timeStampStrTomorrow = dateTimeObj.strftime("%d/%m/%Y")
         timeStampStrToday = '19/03/2019'
         timeStampStrTomorrow = '20/03/2019'
+        timeStampStrFriday = '20/04/2019'
+        timeStampStrMonday = '23/03/2019'
+
 
         if day  == 'today':
             date_choice = timeStampStrToday
         elif day == 'tomorrow':
             date_choice = timeStampStrTomorrow
+        elif day == 'friday':
+            date_choice = timeStampStrFriday
+        elif day == 'monday':
+            date_choice = timeStampStrMonday
 
         return str(date_choice)
 
@@ -53,19 +57,19 @@ class showTimetable(Action):
     timetable_string_temp = ""
 
     day = tracker.get_slot('date')
-    message = tracker.latest_message.get('text')
+    message = tracker.latest_message.get('text').lower()
     
     for i in cursor.fetchall():
         timetable_list.append(i)
 
-    if 'today' in message or 'tomorrow' in message:
+    if 'today' in message or 'tomorrow' in message or 'Friday' in message:
         for k in timetable_list:
             if k[3] == getDate.date_choice(day):
                 timetable_string_temp = "Module name: " + k[0] + ", Starting at: " + k[1] + ", Ending at: " + k[2] + ", Date " + k[3] + ", Room: " + k[4] + "<br /> "
                 timetable_string += timetable_string_temp
 
         if timetable_string == '':
-            timetable_string = "currently empty."
+            timetable_string = "Currently empty"
     else:
         for k in timetable_list:
             timetable_string_temp = "Module name: " + k[0] + ", Starting at: " + k[1] + ", Ending at: " + k[2] + ", Date " + k[3] + ", Room: " + k[4] + "<br /> "
@@ -102,14 +106,13 @@ class actionSU(Action):
     SU_string_temp = ""
     SU_string = ""
     day = tracker.get_slot('date')
-    message = tracker.latest_message.get('text')
+    message = tracker.latest_message.get('text').lower()
 
     for k in cursor.fetchall():
         SU.append(k)
 
-    if 'today' in message or 'tomorrow' in message:
+    if 'today' in message or 'tomorrow' in message or 'friday' in message:
         for i in SU:
-            print(i[3])
             if i[3] == getDate.date_choice(day):
                 SU_string_temp = "Event name: " + i[0] + ", Starting time: " + i[1] + ", Ending time: " + i[2] + ", Date of the event: " + i[3] + ", At: " + i[4] + "<br /> "
                 SU_string += SU_string_temp
@@ -148,7 +151,7 @@ class actionSchools(Action):
     cursor = connection.cursor()
     cursor.execute("SELECT School_name, Building_name, Location_building FROM Buildings,Schools WHERE Buildings.Building_ID = Schools.Building_ID")
     Schools = []
-    School_string = ""
+    Schools_string = ""
     Schools_string_temp = ""
     for k in cursor.fetchall():
         Schools.append(k)
@@ -182,14 +185,38 @@ class actionWhere(Action):
     cursor = connection.cursor()
     cursor.execute("SELECT School_name, Building_name, Location_building FROM Buildings,Schools WHERE Buildings.Building_ID = Schools.Building_ID")
     Buildings = []
-    message = tracker.latest_message.get('text')
+    message = tracker.latest_message.get('text').lower()
+    
     for k in cursor.fetchall():
          Buildings.append(k)
     for j in Buildings:
-        if j[0] in message:
-            return [SlotSet("Address", j[2])]
-        elif j[1] in message:
-            return [SlotSet("Address", j[2])]
+        if j[0].lower() in message:
+            return [SlotSet("Address", j[2]), SlotSet("Address_name", j[0])]
+        elif j[1].lower() in message:
+            return [SlotSet("Address", j[2]), SlotSet("Address_name", j[1])]
+    
+    return [SlotSet("Address", "Sorry I cannot find the Address")]
+
+class actionDirections(Action):
+ def name(self) -> Text:
+  return "action_directions"
+
+ def run(self, dispatcher: CollectingDispatcher, tracker: Tracker, domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+    cursor = connection.cursor()
+    cursor.execute("SELECT School_name, Building_name, Location_building FROM Buildings,Schools WHERE Buildings.Building_ID = Schools.Building_ID")
+    Buildings = []
+    message = tracker.latest_message.get('text').lower()
+    for k in cursor.fetchall():
+         Buildings.append(k)
+    for j in Buildings:
+        if j[0].lower() in message:
+            direction_temp = "https://www.google.com/maps/dir/?api=1&destination=" + urllib.parse.quote(j[2])
+            return [SlotSet("Direction", direction_temp), SlotSet("Direction_name", j[0])]
+        elif j[1].lower() in message:
+            direction_temp = "https://www.google.com/maps/dir/?api=1&destination=" + urllib.parse.quote(j[2])
+            return [SlotSet("Direction", direction_temp), SlotSet("Direction_name", j[1])]
+    
+    return [SlotSet("Address", "sorry location not found")]
 
 class actionFindRoom(Action):
  def name(self) -> Text:
@@ -199,12 +226,12 @@ class actionFindRoom(Action):
     cursor = connection.cursor()
     cursor.execute("SELECT Room_ID, Building_name FROM Rooms,Buildings WHERE Rooms.Building_ID = Buildings.Building_ID")
     Rooms = []
-    message = tracker.latest_message.get('text')
+    message = tracker.latest_message.get('text').lower()
     for k in cursor.fetchall():
          Rooms.append(k)
     for j in Rooms:
-        if j[0] in message:
-            return [SlotSet("Room Location", j[1])]
+        if j[0].lower() in message:
+            return [SlotSet("Room_location", j[1]), SlotSet("Room_location_name", j[0])]
 
 class actionOffice(Action):
  def name(self) -> Text:
@@ -214,12 +241,12 @@ class actionOffice(Action):
     cursor = connection.cursor()
     cursor.execute("SELECT Lecturer_name,Room_ID FROM Lecturer")
     Office = []
-    message = tracker.latest_message.get('text')
+    message = tracker.latest_message.get('text').lower()
     for k in cursor.fetchall():
          Office.append(k)
     for j in Office:
-        if j[0] in message:
-            return [SlotSet("Office", j[1])]
+        if j[0].lower() in message:
+            return [SlotSet("Office", j[1]), SlotSet("Lecturer_name", j[0])]
 
 class actionEmail(Action):
  def name(self) -> Text:
@@ -229,12 +256,12 @@ class actionEmail(Action):
     cursor = connection.cursor()
     cursor.execute("SELECT Lecturer_name,Lecturer_email FROM Lecturer")
     Email = []
-    message = tracker.latest_message.get('text')
+    message = tracker.latest_message.get('text').lower()
     for k in cursor.fetchall():
          Email.append(k)
     for j in Email:
-        if j[0] in message:
-            return [SlotSet("Email", j[1])]
+        if j[0].lower() in message:
+            return [SlotSet("Email", j[1]), SlotSet("Lecturer_name", j[0])]
 
 
 class actionPTEmail(Action):
@@ -257,12 +284,12 @@ class actionExam(Action):
     cursor = connection.cursor()
     cursor.execute("SELECT Module_ID, Module_name, Exam_date from Modules")
     Exam = []
-    message = tracker.latest_message.get('text')
+    message = tracker.latest_message.get('text').lower()
     for k in cursor.fetchall():
          Exam.append(k)
     for j in Exam:
-        if j[0] in message or j[1] in message:
-            return [SlotSet("Exam", j[2])]
+        if j[0].lower() in message or j[1].lower() in message:
+            return [SlotSet("Exam", j[2]), SlotSet("Exam_name", j[1])]
 
 class actionAssessment(Action):
  def name(self) -> Text:
@@ -277,7 +304,7 @@ class actionAssessment(Action):
          Assessment.append(k)
     for j in Assessment:
         if j[0] in message or j[1] in message:
-            return [SlotSet("Assessment", j[2])]
+            return [SlotSet("Assessment", j[2]), SlotSet("Assessment_name", j[1])]
 
 
 class ActionForm(FormAction):

@@ -18,12 +18,11 @@ def get_bot_response():
 
 		response = requests.post(url, data=json.dumps(payload), headers=headers)
 		response = response.json()
-		print(response)
 		msg_new = response[0]["text"]
 		return msg_new
 	except Exception as e:
 		print(e)
-		error_msg = "sorry cannot connect to server"
+		error_msg = "Error: Sorry I cannot connect to server"
 		return error_msg
  
  

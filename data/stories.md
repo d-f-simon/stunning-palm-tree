@@ -40,7 +40,6 @@
 * timetable_date
   - action_show_timetable
   - utter_timetable
-  <!-- - action_reset_slot -->
 
 ## find room
 * find_room
@@ -75,6 +74,11 @@
 * address
     - action_where
     - utter_where
+
+## directions
+* directions
+    - action_directions
+    - utter_directions
 
 ## LecturerOffice
 * LecturerOffice

@@ -1,4 +1,4 @@
-#this is where actions and intents are defined, as well as slots, and responses from the bot
+#this is where actions and intents are defined, as well as slots (how user input variables are declared and stored), as well as where the responses from the bot
 
 intents:
   - greet
@@ -28,6 +28,7 @@ intents:
   - receiver_entry
   - subject_entry
   - body_entry
+  - directions
 
 
 forms:
@@ -60,6 +61,7 @@ actions:
   - utter_ask_receiver
   - utter_ask_subject
   - utter_ask_body
+  - utter_directions
 
   - action_send_email
   - аction_exam
@@ -76,6 +78,7 @@ actions:
   - action_show_timetable
   - action_SU
   - action_reset_slot
+  - action_directions
 
 entities:
   - subject
@@ -111,26 +114,13 @@ slots:
       - thursday
       - friday
 
-  time:
-    type: categorical
-    values:
-      - 1
-      - 2
-      - 3
-      - 4
-      - 5
-      - 6
-      - 7
-      - 8
-      - 9
-      - 10
-      - 11
-      - 12
-
   TimeTable:
     type: text
   
   Lecturers:
+    type: text
+
+  Lecturer_name:
     type: text
 
   Events:
@@ -148,7 +138,19 @@ slots:
   Address:
     type: text
 
-  Room Location:
+  Address_name:
+    type: text
+
+  Direction:
+    type: text
+
+  Direction_name:
+    type: text
+
+  Room_location:
+    type: text
+
+  Room_location_name:
     type: text
 
   Office:
@@ -163,7 +165,13 @@ slots:
   Exam:
     type: text
 
+  Exam_name:
+    type: text
+
   Assessment:
+    type: text
+
+  Assessment_name:
     type: text
 
   body:
@@ -199,13 +207,13 @@ responses:
   - text: "Your timetable for {date} is {TimeTable}"
 
   utter_lecturer:
-  - text: "Lecturer info {Lecturers}"
+  - text: "Lecturer info: </br> {Lecturers}"
 
   utter_events:
-  - text: "Upcoming Events {Events}"
+  - text: "Upcoming Events: </br> {Events}"
 
   utter_modules:
-  - text: "Modules {Modules}"
+  - text: "Your current modules are: </br> {Modules}"
 
   utter_ask_subject:
   - text: "What would be the subject of the email?"
@@ -218,42 +226,39 @@ responses:
 
   utter_email_sent:
   - text: "Email sent successfully!"
-
-
-  utter_empty_time:
-  - text: "You currently don't have anything at {time}"
-  - text: "You currently have nothing at {time}"
-  - text: "There isn't anything at {time}"
   
   utter_schools:
   - text: "Schools {Schools}"
 
   utter_exam:
-  - text: "Exam date: {Exam}"
+  - text: "The exam date for {Exam_name} is: {Exam}"
 
   utter_assessment:
-  - text: "Assessment date: {Assessment}"
+  - text: "The assessment date for {Assessment_name} is: {Assessment}"
 
   utter_rooms:
   - text: "Rooms {Rooms}"
 
   utter_email:
-  - text: "Email of the lecturer {Email}"
+  - text: "Email of the {Lecturer_name} is {Email}"
 
   utter_pt:
-  - text: "Your Personal tutor is {PT} "
+  - text: "Your Personal tutor is: {PT} "
 
   utter_find_room:
-  - text: "Room's location is in {Room Location}"
+  - text: "Room: {Room_location_name} is found in {Room_location}"
 
   utter_who:
   - text: "I am the Cardiff University Chatbot, how can I help you?"
 
   utter_where:
-  - text: "Address: {Address}"
+  - text: "The Address of {Address_name} is: {Address}"
+
+  utter_directions:
+  - text: 'Here are the directions to <a href="{Direction}" target="_blank">{Direction_name}</a>, please click the link to open a google maps'
 
   utter_office:
-  - text: "The Office of the lecturer is {Office}"
+  - text: "The Office of {Lecturer_name} is {Office}"
 
 session_config:
   session_expiration_time: 60
